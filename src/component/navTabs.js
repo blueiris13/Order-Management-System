@@ -18,7 +18,7 @@ class Main extends Component {
                         <Nav.Link href="/game">Games</Nav.Link>
                     </Nav>
                 </Navbar>
-                <div className="content">
+                <div className="content" style={{padding:"20px"}}>
                     <Route exact path="/" component={Home}/>
                     <Route path="/customer" component={Customer}/>
                     <Route path="/game" component={Game}/>

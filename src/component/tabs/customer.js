@@ -1,6 +1,7 @@
 import React from "react";
 import CustomerTable from "../customertable"
 import CustomerForm from "../forms/customerfrom";
+import CustomerSearch from "../search/customersearch";
 
 const Customer = () => {
     return (
@@ -11,6 +12,9 @@ const Customer = () => {
             <br>
             </br>
             <CustomerForm/>
+            <br>
+            </br>
+            <CustomerSearch/>
             <br>
             </br>
             <br>
