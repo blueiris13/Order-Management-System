@@ -11,7 +11,7 @@ class Main extends Component {
         return (
             <div>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="/">BOMS</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/">BOMS</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/">Orders</Nav.Link>
                         <Nav.Link as={Link} to="/customer">Customers</Nav.Link>
