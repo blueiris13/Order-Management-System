@@ -10,12 +10,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 const columns = [
-    { id: 'gameID', label: 'Game ID', minWidth: 170},
+    { id: 'gameID', label: 'Game ID', minWidth: 100},
     { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'genre', label: 'Genre', minWidth: 170 },
-    { id: 'price', label: 'Price', minWidth: 170 },
-    { id: 'offline', label: 'offline', minWidth: 170 },
-    { id: 'platform', label: 'platform', minWidth: 170 }
+    { id: 'genre', label: 'Genre', minWidth: 130 },
+    { id: 'price', label: 'Price', minWidth: 100 },
+    { id: 'offline', label: 'Offline', minWidth: 130 },
+    { id: 'platform', label: 'Platform', minWidth: 130 }
     ,
 ];
 
@@ -25,13 +25,13 @@ function createData(gameID, name, genre, price, offline, platform) {
 
 
 const rows = [
-    createData('1', 'IN', 'FPS', 35, 'Yes', 'Desktop'),
-    createData('2', 'IN', 'FPS', 35, 'Yes', 'Desktop'),
-    createData('3', 'IN', 'FPS', 35, 'No', 'Desktop'),
-    createData('4', 'IN', 'FPS', 35, 'Yes', 'Desktop'),
-    createData('5', 'IN', 'FPS', 35, 'Yes', 'Desktop'),
-    createData('6', 'IN', 'FPS', 35, 'No', 'Desktop'),
-    createData('7', 'IN', 'FPS', 35, 'Yes', 'Desktop'),
+    createData('1', 'World of Barcraft', 'FPS', 35, 'Yes', 'Desktop'),
+    createData('2', 'TopWatch', 'FPS', 35, 'Yes', 'Desktop'),
+    createData('3', 'TopWatch II', 'FPS', 35, 'No', 'Desktop'),
+    createData('4', 'Hurthstone', 'FPS', 35, 'Yes', 'Desktop'),
+    createData('5', 'Ziablo', 'FPS', 35, 'Yes', 'Desktop'),
+    createData('6', 'Ziablo II', 'FPS', 35, 'No', 'Desktop'),
+    createData('7', 'MoonCraft', 'FPS', 35, 'Yes', 'Desktop'),
 ];
 
 const useStyles = makeStyles({
@@ -93,7 +93,7 @@ export default function StickyHeadTable() {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[15, 30, 50]}
+                rowsPerPageOptions={[10, 30, 50]}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

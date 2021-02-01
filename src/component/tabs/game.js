@@ -8,15 +8,13 @@ const Game = () => {
         <div className='hello-world'>
             <br>
             </br>
-            <h1>Game!</h1>
+            <h1>Games</h1>
             <br>
             </br>
             <GameForm />
             <br>
             </br>
             <GameSearch />
-            <br>
-            </br>
             <GameTable />
         </div>
     )

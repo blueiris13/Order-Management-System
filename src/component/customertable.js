@@ -10,7 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 const columns = [
-    { id: 'customerID', label: 'Customer ID', minWidth: 170},
+    { id: 'customerID', label: 'Customer ID', minWidth: 150},
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'blizzardID', label: 'Blizzard ID', minWidth: 170 },
@@ -23,7 +23,7 @@ function createData( customerID, name, email, blizzardID ) {
 const rows = [
     createData(1, 'Hyun Kim', 'abc@gmail.com', 'hello'),
     createData(2, 'William Sun', 'abc@gmail.com', 'hello'),
-    createData(3, 'Hyun Kim', 'abc@gmail.com', 'hello'),
+    createData(3, 'Hyun Kim', 'abc@gmail.com', 'NULL'),
     createData(4, 'William Sun', 'abc@gmail.com', 'hello'),
 ];
 
@@ -86,7 +86,7 @@ export default function StickyHeadTable() {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[15, 30, 50]}
+                rowsPerPageOptions={[10, 30, 50]}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

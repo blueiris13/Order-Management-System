@@ -8,17 +8,13 @@ const Customer = () => {
         <div className='hello-world'>
             <br>
             </br>
-            <h1>Customer!</h1>
+            <h1>Customers</h1>
             <br>
             </br>
             <CustomerForm/>
             <br>
             </br>
             <CustomerSearch/>
-            <br>
-            </br>
-            <br>
-            </br>
             <CustomerTable/>
         </div>
     )

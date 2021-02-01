@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 const columns = [
     {id: 'orderID', label: 'Order ID', minWidth: 170},
-    {id: 'customerID', label: 'Name', minWidth: 170},
+    {id: 'customerID', label: 'Customer ID', minWidth: 170},
     {id: 'orderDate', label: 'Order Date', minWidth: 170},
 ];
 
@@ -20,10 +20,10 @@ function createData(orderID, customerID, orderDate) {
 }
 
 const rows = [
-    createData(1, 11111111, '1/1/2021'),
-    createData(2, 11111111, '1/1/2021'),
-    createData(3, 11111111, '1/1/2021'),
-    createData(4, 11111111, '1/1/2021'),
+    createData(1, 123, '1/1/2021'),
+    createData(2, 'NULL', '1/1/2021'),
+    createData(3, 123, '1/1/2021'),
+    createData(4, 123, '1/1/2021'),
 ];
 
 
@@ -87,7 +87,7 @@ export default function OrdersTable(props) {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[15, 30, 50]}
+                rowsPerPageOptions={[10, 30, 50]}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}

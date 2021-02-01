@@ -13,6 +13,7 @@ const formStyle = {
 
 const formContainerStyle = {
     width: "100%",
+    padding: "6px",
     display: "flex",
     justifyContent: "flex-end"
 };
@@ -31,16 +32,15 @@ const Home = () => {
             <HelloWorld />
             <br>
             </br>
-            <br>
-            </br>
-            <OrdersTable onOrderRowClick={onGoToOrderDetail} />
-            <div className='order-detail-button-container' style={formContainerStyle}>
+            <div style={formContainerStyle}>
                 <Form style={formStyle} onClick={onGoToOrderDetail.bind(this, '')}>
                     <Button variant="primary" type="submit">
-                        Add
+                        Add New Order
                     </Button>
-                    </Form>
-                </div>
+                </Form>
+            </div>
+            <OrdersTable onOrderRowClick={onGoToOrderDetail} />
+
 
 
         </div>
