@@ -3,17 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from "./component/navTabs";
 import React from "react";
 import {
-    BrowserRouter
+    HashRouter
 } from "react-router-dom";
 
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="App">
                 <Main/>
             </div>
-        </BrowserRouter>
+        </HashRouter>
 
     );
 }

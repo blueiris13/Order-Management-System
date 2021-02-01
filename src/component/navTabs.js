@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Nav, Navbar} from "react-bootstrap";
-import {Route} from "react-router-dom";
+import {Route, Link } from "react-router-dom";
 import Customer from "./tabs/customer";
 import Home from "./tabs/home";
 import Game from "./tabs/game";
@@ -13,9 +13,9 @@ class Main extends Component {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="/">BOMS</Navbar.Brand>
                     <Nav className="mr-auto">
-                        <Nav.Link href="/">Orders</Nav.Link>
-                        <Nav.Link href="/customer">Customers</Nav.Link>
-                        <Nav.Link href="/game">Games</Nav.Link>
+                        <Nav.Link as={Link} to="/">Orders</Nav.Link>
+                        <Nav.Link as={Link} to="/customer">Customers</Nav.Link>
+                        <Nav.Link as={Link} to="/game">Games</Nav.Link>
                     </Nav>
                 </Navbar>
                 <div className="content" style={{padding:"20px"}}>
