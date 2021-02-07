@@ -45,11 +45,11 @@ const detailTableStyle = {
 };
 
 const buttonContainerStyle = {
-    padding: "10px",
+    padding: "15px",
 }
 
 const buttonStyle = {
-    margin: "5px",
+    margin: "7px",
 }
 
 

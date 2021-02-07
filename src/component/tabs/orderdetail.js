@@ -7,6 +7,7 @@ class OrderDetail extends Component {
         return (
             <div>
                 <h1>Order Detail</h1>
+                <h5 align="left">Order ID: </h5>
                 <h5 align="left">Customer Name: </h5>
                 <h5 align="left">Order Date: </h5>
                 <OrderDetailTable/>

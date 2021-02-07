@@ -38,6 +38,10 @@ const Home = () => {
                         Add New Order
                     </Button>
                 </Form>
+
+            </div>
+            <div align={'right'}>
+                <p>* Click a row to access Order Details page.</p>
             </div>
             <OrdersTable onOrderRowClick={onGoToOrderDetail} />
 
