@@ -1,7 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 import OrdersTable from "../hometable";
 import HelloWorld from "../helloworld";
-import { useHistory } from "react-router-dom";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
@@ -18,37 +17,90 @@ const formContainerStyle = {
     justifyContent: "flex-end"
 };
 
-const Home = () => {
-    const history = useHistory();
 
-    const onGoToOrderDetail = (orderID) => {
-        history.push("/order-detail?orderID=" + orderID);
+class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            orders: []
+        }
     }
 
-    return (
-        <div className='home'>
-            <br>
-            </br>
-            <HelloWorld />
-            <br>
-            </br>
-            <div style={formContainerStyle}>
-                <Form style={formStyle} onClick={onGoToOrderDetail.bind(this, '')}>
-                    <Button variant="primary" type="submit">
-                        Add New Order
-                    </Button>
-                </Form>
+    onGoToOrderDetail = (orderID) => {
+        this.props.history.push("/order-detail?orderID=" + orderID);
+    }
 
+
+
+
+
+    // Get all existing Orders data when the page is loaded.
+    componentDidMount() {
+        this.fetchAllOrders(this)
+    }
+
+    fetchAllOrders = (context) => {
+        fetch('http://flip1.engr.oregonstate.edu:7878/orders', {
+            method: 'GET'
+        }).then(res => res.json())
+            .then(function (response) {
+                console.log("order here" + response.orders)
+                context.setState({...context.state, orders: response.orders})
+            });
+    }
+
+    handleSubmit = (event) => {
+        alert('Create New Order?');
+
+        const that = this
+
+        fetch('http://flip1.engr.oregonstate.edu:7878/orders', {
+            method: 'POST',
+            // convert the React state to JSON and send it as the POST body
+            body: JSON.stringify({customer_id: null, order_date: '2021-01-01 10:10:10'}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(function (response) {
+                console.log("hello hello " + response.orders)
+                that.onOrderAdded(response.orders)
+                console.log("did we get orders in order home order? " + that.orders)
+                return response.orders;
+            });
+
+        event.preventDefault();
+    }
+
+    onOrderAdded = (orders) => {
+        console.log("orders here" + orders)
+        this.setState({...this.state, orders: orders})
+    }
+
+    render() {
+        return (
+            <div className='home'>
+                <br>
+                </br>
+                <HelloWorld/>
+                <br>
+                </br>
+                <div style={formContainerStyle}>
+                    <Form style={formStyle} onSubmit={this.handleSubmit.bind(this)}>
+                        <Button variant="primary" type="submit">
+                            Add New Order
+                        </Button>
+                    </Form>
+
+                </div>
+                <div align={'right'}>
+                    <p>* Click a row to access Order Details page.</p>
+                </div>
+                <OrdersTable onOrderRowClick={this.onGoToOrderDetail.bind(this)} orders={this.state.orders}/>
             </div>
-            <div align={'right'}>
-                <p>* Click a row to access Order Details page.</p>
-            </div>
-            <OrdersTable onOrderRowClick={onGoToOrderDetail} />
-
-
-
-        </div>
-    )
+        )
+    }
 }
 
 export default Home;

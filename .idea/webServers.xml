@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2e159745-efde-4ba2-b4bc-995507e9ebea" name="flip3" url="http://flip3.engr.oregonstate.edu:8787">
+        <fileTransfer rootFolder="/nfs/stak/users/kimh4" accessType="SFTP" host="flip3.engr.oregonstate.edu" port="22" sshConfigId="1c1492d9-f4d0-4d8e-8e7b-3dcafbe86c5d" sshConfig="kimh4@flip3.engr.oregonstate.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

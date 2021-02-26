@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="flip3.engr.oregonstate.edu" id="1c1492d9-f4d0-4d8e-8e7b-3dcafbe86c5d" port="22" nameFormat="DESCRIPTIVE" username="kimh4" />
+    </configs>
+  </component>
+</project>

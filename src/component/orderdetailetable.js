@@ -52,38 +52,39 @@ const buttonStyle = {
     margin: "7px",
 }
 
-
-
 class OrderDetailTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detailRows: rows,
+            detailRows: props.order_games,
             currentId: 3
         }
         console.log("constructor")
     }
 
-    onRowAdd() {
-        console.log('add button clicked')
-        const newRows = this.state.detailRows
-        const newId = this.state.currentId + 1
-        const fakeRow = createRow(newId, 'New Game', 1, 1)
-        newRows.push(fakeRow)
-        this.setState({
-            detailRows: newRows,
-            currentId: newId
-        })
-    }
+    //
+    // onRowAdd() {
+    //     console.log('add button clicked')
+    //     const newRows = this.state.detailRows
+    //     const newId = this.state.currentId + 1
+    //     const fakeRow = createRow(newId, 'New Game', 1, 1)
+    //     newRows.push(fakeRow)
+    //     this.setState({
+    //         detailRows: newRows,
+    //         currentId: newId
+    //     })
+    // }
+
+    // {/*<Button variant="primary" type="submit" onClick={this.onRowAdd.bind(this)}>*/}
+    // {/*    +*/}
+    // {/*</Button>*/}
+
     render() {
         return (
             <div>
                 <div align="right" style={buttonContainerStyle}>
                     <Button variant="outline-danger" type="submit" style={buttonStyle}>
                         Delete Entire Order
-                    </Button>
-                    <Button variant="primary" type="submit" onClick={this.onRowAdd.bind(this)}>
-                        +
                     </Button>
                 </div>
                 <TableContainer component={Paper} style={detailTableStyle}>
@@ -131,10 +132,7 @@ class OrderDetailTable extends Component {
 
             </div>
         );
-
     }
-
-
 }
 
 export default OrderDetailTable
