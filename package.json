@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.0",
     "forever": "^3.0.4",
     "gh-pages": "^3.1.0",
+    "query-string": "^6.14.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
@@ -46,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@material-ui/data-grid": "^4.0.0-alpha.18"
+    "@material-ui/data-grid": "^4.0.0-alpha.18",
+    "prop-types": "^15.7.2"
   }
 }

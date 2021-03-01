@@ -30,10 +30,6 @@ class Home extends Component {
         this.props.history.push("/order-detail?orderID=" + orderID);
     }
 
-
-
-
-
     // Get all existing Orders data when the page is loaded.
     componentDidMount() {
         this.fetchAllOrders(this)
@@ -44,10 +40,10 @@ class Home extends Component {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
-                console.log("order here" + response.orders)
                 context.setState({...context.state, orders: response.orders})
             });
     }
+
 
     handleSubmit = (event) => {
         alert('Create New Order?');
@@ -64,9 +60,7 @@ class Home extends Component {
             }
         }).then(res => res.json())
             .then(function (response) {
-                console.log("hello hello " + response.orders)
                 that.onOrderAdded(response.orders)
-                console.log("did we get orders in order home order? " + that.orders)
                 return response.orders;
             });
 
@@ -74,7 +68,6 @@ class Home extends Component {
     }
 
     onOrderAdded = (orders) => {
-        console.log("orders here" + orders)
         this.setState({...this.state, orders: orders})
     }
 

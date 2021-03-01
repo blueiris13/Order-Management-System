@@ -21,18 +21,15 @@ class Customer extends Component {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
-                console.log("here" + response.customers)
                 context.setState({...context.state, customers: response.customers})
             });
     }
     // Get new customers data from the Customer form page.
     onCustomerAdded = (customers) => {
-        console.log("customers here" + customers)
         this.setState({...this.state, customers: customers})
     }
 
     render() {
-        console.log(`render from customer=${this.state.customers}`)
         return (
             <div className='hello-world'>
                 <br>
@@ -40,7 +37,7 @@ class Customer extends Component {
                 <h1>Customers</h1>
                 <br>
                 </br>
-                <CustomerForm onCustomerAdded={this.onCustomerAdded.bind(this)} />
+                <CustomerForm onCustomerAdded={this.onCustomerAdded.bind(this)}/>
                 <br>
                 </br>
                 <CustomerSearch/>

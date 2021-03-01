@@ -33,7 +33,6 @@ class GameForm extends Component {
             }
         }).then(res => res.json())
             .then(function(response) {
-            console.log("this is response " + response.games)
             that.onGameAdded(response.games);
             return response.games;
         });

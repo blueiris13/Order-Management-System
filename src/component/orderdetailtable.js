@@ -18,22 +18,11 @@ function priceRow(qty, unit) {
     return qty * unit;
 }
 
-function createRow(gameID, gameName, qty, unit) {
-    const price = priceRow(qty, unit);
-    return {gameID, gameName, qty, unit, price};
-}
-
 function totalPrice(items) {
     return items.map(({price}) => price).reduce((sum, i) => sum + i, 0);
 }
 
-const rows = [
-    createRow(1, 'Ziablo', 2, 45),
-    createRow(2, 'MoonCraft', 4, 39),
-    createRow(3, 'TopWatch', 5, 23),
-];
-
-const invoiceTotal = totalPrice(rows);
+// const invoiceTotal = totalPrice(rows);
 
 const formStyle = {
     display: "inline",
@@ -59,7 +48,13 @@ class OrderDetailTable extends Component {
             detailRows: props.order_games,
             currentId: 3
         }
-        console.log("constructor")
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if (this.state.detailRows !== nextProps.order_games) {
+            this.setState({...this.state, detailRows: nextProps.order_games})
+        }
+        return true
     }
 
     //
@@ -103,12 +98,14 @@ class OrderDetailTable extends Component {
                         </TableHead>
                         <TableBody>
                             {this.state.detailRows.map((row) => (
-                                <TableRow key={row.gameID}>
-                                    <TableCell>{row.gameID}</TableCell>
-                                    <TableCell align="left">{row.gameName}</TableCell>
-                                    <TableCell align="center">{row.qty}</TableCell>
-                                    <TableCell align="center">{row.unit}</TableCell>
-                                    <TableCell align="center">{ccyFormat(row.price)}</TableCell>
+                                <TableRow key={row.game_id}>
+                                    <TableCell>{row.game_id}</TableCell>
+                                    <TableCell align="left">Game name</TableCell>
+                                    <TableCell align="center">0</TableCell>
+                                    {/*<TableCell align="center">{row.unit}</TableCell>*/}
+                                    {/*<TableCell align="center">{ccyFormat(row)}</TableCell>*/}
+                                    <TableCell align="center">{0}</TableCell>
+                                    <TableCell align="center">{0}</TableCell>
                                     <TableCell align="right">
                                         <Dropdown>
                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -124,7 +121,8 @@ class OrderDetailTable extends Component {
 
                             <TableRow>
                                 <TableCell colSpan={4} align="right">Total</TableCell>
-                                <TableCell colSpan={2} align="right">{ccyFormat(invoiceTotal)}</TableCell>
+                                <TableCell colSpan={2} align="right">0</TableCell>
+                                {/*<TableCell colSpan={2} align="right">{ccyFormat(invoiceTotal)}</TableCell>*/}
                             </TableRow>
                         </TableBody>
                     </Table>

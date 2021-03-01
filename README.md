@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+## Readme
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Group 78, 
+Linshengyi Sun & Hyun Kim
 
-## Available Scripts
+### Project Title
+Blizzard Order Management System
 
-In the project directory, you can run:
+## Project Description
+Front end code is written in React.js.<br>
+Back end code is written in Node.js.
 
-### `npm start`
+### Project Pages
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Orders
+This is Home page. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+CREATE functionality works when the "Add New Order" button is clicked. This will create a new row on the table with the dummy data (Customer ID and Order Date).
+This is expected behavior. Users will be able to update/edit the data in the Order Details page in the final version.<br>
+READ functionality works. The existing/newly added data will appear on the Orders table.
 
-### `npm test`
+Related files - home.js, helloworld.js, hometable.js 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Order Details 
+This page is accessible when clicking the rows on the Orders table.
 
-### `npm run build`
+CREATE functionality works with the Order Details form.<br>
+*Note: Game Id(Game) can only be added once per order_id.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+READ partially works. The table will fetch the correct data from Order_Games table, but still need to fetch the relevant data from Game table.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+UPDATE/DELETE will be implemented.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Related files - orderdetail.js, orderdetailform.js, orderdetailtable.js
 
-### `npm run eject`
+#### Customers
+This page is accessible when clicking the "Customers" on the top menu.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+CREATE functionality works with the Customers form.<br>
+READ functionality works. The existing/newly added data will appear on the Customers table.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Related files - customer.js, customerform.js, customertable.js, customersearch.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Games
+This page is accessible when clicking the "Games" on the top menu.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+CREATE functionality works with the Games form.<br>
+READ functionality works. The existing/newly added data will appear on the Games table.
 
-## Learn More
+Related files - game.js, gameform.js, gametable.js, gamesearch.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Backend Code
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+All backend code can be found in index.js file.

@@ -27,18 +27,16 @@ class CustomerForm extends Component {
             method: 'POST',
             // We convert the React state to JSON and send it as the POST body
             body: JSON.stringify(this.state),
-            headers : {
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         }).then(res => res.json())
-            .then(function(response) {
-            console.log(response.customers)
-
+            .then(function (response) {
 
                 that.onCustomerAdded(response.customers)
-            return response.customers;
-        });
+                return response.customers;
+            });
 
         event.preventDefault();
     }
@@ -47,26 +45,28 @@ class CustomerForm extends Component {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Row>
-                <Form.Group as={Col} controlId="formCustomerName">
-                    <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="name" name="full_name" placeholder="Enter full name" defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required />
-                </Form.Group>
+                    <Form.Group as={Col} controlId="formCustomerName">
+                        <Form.Label>Full Name</Form.Label>
+                        <Form.Control type="name" name="full_name" placeholder="Enter full name"
+                                      defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required/>
+                    </Form.Group>
 
-                <Form.Group as={Col} controlId="formCustomerEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" name="email"  placeholder="Enter email" defaultValue={this.state.email} onChange={this.handleChange.bind(this)} required />
-                </Form.Group>
+                    <Form.Group as={Col} controlId="formCustomerEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" name="email" placeholder="Enter email"
+                                      defaultValue={this.state.email} onChange={this.handleChange.bind(this)} required/>
+                    </Form.Group>
                 </Form.Row>
 
                 <Form.Group as={Col} controlId="formCustomerBlizzardID">
                     <Form.Label>Blizzard ID</Form.Label>
-                    <Form.Control type="text" name="blizzard_id" placeholder="Enter Blizzard ID" defaultValue={this.state.blizzard_id} onChange={this.handleChange.bind(this)} required />
+                    <Form.Control type="text" name="blizzard_id" placeholder="Enter Blizzard ID"
+                                  defaultValue={this.state.blizzard_id} onChange={this.handleChange.bind(this)}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
                     Add a Customer
                 </Button>
-
             </Form>
         );
     }

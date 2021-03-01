@@ -52,58 +52,57 @@ class OrdersTable extends Component {
 
     render() {
         const {classes} = this.props;
-    return (
-        <Paper className={classes.root}>
-            <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{minWidth: column.minWidth}}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.orders.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
-                            return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.order_id}
-                                        onClick={this.onOrderRowClick.bind(this, row.order_id)}>
-                                    {columns.map((column) => {
-                                        let value = row[column.id];
+        return (
+            <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{minWidth: column.minWidth}}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.orders.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.order_id}
+                                              onClick={this.onOrderRowClick.bind(this, row.order_id)}>
+                                        {columns.map((column) => {
+                                            let value = row[column.id];
                                             if (value === null) {
                                                 value = "Guest"
                                             }
-                                        return (
-                                            <TableCell key={column.id} align={column.align}>
-                                                {column.format && typeof value === 'number' ? column.format(value) : value}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 30, 50]}
-                component="div"
-                count={this.state.orders.length}
-                rowsPerPage={this.state.rowsPerPage}
-                page={this.state.page}
-                onChangePage={this.handleChangePage.bind(this)}
-                onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
-            />
-        </Paper>
-    );
-}
-
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                </TableCell>
+                                            );
+                                        })}
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 30, 50]}
+                    component="div"
+                    count={this.state.orders.length}
+                    rowsPerPage={this.state.rowsPerPage}
+                    page={this.state.page}
+                    onChangePage={this.handleChangePage.bind(this)}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
+                />
+            </Paper>
+        );
+    }
 }
 
 export default withStyles(useStyles)(OrdersTable)

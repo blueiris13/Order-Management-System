@@ -11,8 +11,8 @@ class Game extends Component {
         }
     }
 
-    // Get all existing Customers data when the page is loaded.
-    componentDidMount(){
+    // Get all existing Games data when the page is loaded.
+    componentDidMount() {
         this.fetchAllGame(this)
     }
 
@@ -21,19 +21,15 @@ class Game extends Component {
             method: 'GET',
             // We convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
-            .then(function(response) {
-                console.log(response.games)
+            .then(function (response) {
                 context.setState({...context.state, games: response.games})
             });
     }
 
-    // Get new customers data from the Customer form page.
+    // Get new game data from the Game form page.
     onGameAdded = (games) => {
-        console.log("game on games page" + games)
         this.setState({...this.state, games: games})
     }
-
-
 
     render() {
         return (

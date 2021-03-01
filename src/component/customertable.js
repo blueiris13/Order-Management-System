@@ -28,7 +28,6 @@ const useStyles = theme => ({
 class CustomersTable extends Component {
     constructor(props) {
         super(props);
-        console.log("customer table" + props.customers)
         this.state = {
             customers: props.customers,
             page: 0,
