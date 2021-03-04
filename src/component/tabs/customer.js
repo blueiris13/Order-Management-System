@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import CustomerTable from "../customertable"
 import CustomerForm from "../forms/customerform";
 import CustomerSearch from "../search/customersearch";
+import {SERVER_URL} from "../../constants/serverconstants";
 
 class Customer extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Customer extends Component {
     }
 
     fetchAllCustomer = (context) => {
-        fetch('http://flip1.engr.oregonstate.edu:7878/customers', {
+        fetch(`${SERVER_URL}/customers`, {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {

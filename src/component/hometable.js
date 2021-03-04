@@ -73,7 +73,7 @@ class OrdersTable extends Component {
                             {this.state.orders.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.order_id}
-                                              onClick={this.onOrderRowClick.bind(this, row.order_id)}>
+                                              onClick={this.onOrderRowClick.bind(this, row.order_id, row.customer_id)}>
                                         {columns.map((column) => {
                                             let value = row[column.id];
                                             if (value === null) {

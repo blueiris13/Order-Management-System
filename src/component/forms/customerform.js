@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import {SERVER_URL} from "../../constants/serverconstants";
 
 
 class CustomerForm extends Component {
@@ -23,7 +24,7 @@ class CustomerForm extends Component {
 
         const that = this
 
-        fetch('http://flip1.engr.oregonstate.edu:7878/customers', {
+        fetch(`${SERVER_URL}/customers`, {
             method: 'POST',
             // We convert the React state to JSON and send it as the POST body
             body: JSON.stringify(this.state),

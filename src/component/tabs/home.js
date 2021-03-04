@@ -3,7 +3,7 @@ import OrdersTable from "../hometable";
 import HelloWorld from "../helloworld";
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-
+import {SERVER_URL} from "../../constants/serverconstants";
 
 const formStyle = {
     display: "inline",
@@ -26,8 +26,8 @@ class Home extends Component {
         }
     }
 
-    onGoToOrderDetail = (orderID) => {
-        this.props.history.push("/order-detail?orderID=" + orderID);
+    onGoToOrderDetail = (orderID, customerID) => {
+        this.props.history.push(`/order-detail?orderID=${orderID}&customerID=${customerID}`);
     }
 
     // Get all existing Orders data when the page is loaded.
@@ -36,7 +36,7 @@ class Home extends Component {
     }
 
     fetchAllOrders = (context) => {
-        fetch('http://flip1.engr.oregonstate.edu:7878/orders', {
+        fetch(`${SERVER_URL}/orders`, {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
@@ -50,7 +50,7 @@ class Home extends Component {
 
         const that = this
 
-        fetch('http://flip1.engr.oregonstate.edu:7878/orders', {
+        fetch(`${SERVER_URL}/orders`, {
             method: 'POST',
             // convert the React state to JSON and send it as the POST body
             body: JSON.stringify({customer_id: null, order_date: '2021-01-01 10:10:10'}),

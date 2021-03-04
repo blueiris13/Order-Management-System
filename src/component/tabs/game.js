@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import GameTable from "../gametable"
 import GameForm from "../forms/gameform";
 import GameSearch from "../search/gamesearch";
+import {SERVER_URL} from "../../constants/serverconstants";
 
 class Game extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Game extends Component {
     }
 
     fetchAllGame = (context) => {
-        fetch('http://flip1.engr.oregonstate.edu:7878/games', {
+        fetch(`${SERVER_URL}/games`, {
             method: 'GET',
             // We convert the React state to JSON and send it as the POST body
         }).then(res => res.json())

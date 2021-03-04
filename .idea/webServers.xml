@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="0b4e99dd-c78f-4b27-8261-19c27bcecbd1" name="flip1" url="http://flip1.engr.oregonstate.edu:8711">
+        <fileTransfer rootFolder="/nfs/stak/users/kimh4" accessType="SFTP" host="flip1.engr.oregonstate.edu" port="22" sshConfigId="24c32b3d-ed18-45a4-918e-0d6ea771c70c" sshConfig="kimh4@flip1.engr.oregonstate.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

@@ -33,26 +33,22 @@ const detailTableStyle = {
     width: "100%",
 };
 
-const buttonContainerStyle = {
-    padding: "15px",
-}
 
-const buttonStyle = {
-    margin: "7px",
-}
+
+
 
 class OrderDetailTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detailRows: props.order_games,
-            currentId: 3
+            order_games: props.order_games,
+            currentId: 2
         }
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if (this.state.detailRows !== nextProps.order_games) {
-            this.setState({...this.state, detailRows: nextProps.order_games})
+        if (this.state.order_games !== nextProps.order_games) {
+            this.setState({...this.state, order_games: nextProps.order_games})
         }
         return true
     }
@@ -60,12 +56,12 @@ class OrderDetailTable extends Component {
     //
     // onRowAdd() {
     //     console.log('add button clicked')
-    //     const newRows = this.state.detailRows
+    //     const newRows = this.state.order_games
     //     const newId = this.state.currentId + 1
     //     const fakeRow = createRow(newId, 'New Game', 1, 1)
     //     newRows.push(fakeRow)
     //     this.setState({
-    //         detailRows: newRows,
+    //         order_games: newRows,
     //         currentId: newId
     //     })
     // }
@@ -75,13 +71,11 @@ class OrderDetailTable extends Component {
     // {/*</Button>*/}
 
     render() {
+        this.state.order_games.map((game) => (
+            console.log("This is order_gamess:  " + JSON.stringify(game))
+        ))
         return (
             <div>
-                <div align="right" style={buttonContainerStyle}>
-                    <Button variant="outline-danger" type="submit" style={buttonStyle}>
-                        Delete Entire Order
-                    </Button>
-                </div>
                 <TableContainer component={Paper} style={detailTableStyle}>
                     <Table aria-label="spanning table">
                         <TableHead>
@@ -97,11 +91,11 @@ class OrderDetailTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.detailRows.map((row) => (
+                            {this.state.order_games.map((row) =>(
                                 <TableRow key={row.game_id}>
                                     <TableCell>{row.game_id}</TableCell>
                                     <TableCell align="left">Game name</TableCell>
-                                    <TableCell align="center">0</TableCell>
+                                    <TableCell align="center">{row.quantity}</TableCell>
                                     {/*<TableCell align="center">{row.unit}</TableCell>*/}
                                     {/*<TableCell align="center">{ccyFormat(row)}</TableCell>*/}
                                     <TableCell align="center">{0}</TableCell>
@@ -111,7 +105,7 @@ class OrderDetailTable extends Component {
                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">Edit quantity</Dropdown.Item>
                                                 <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
