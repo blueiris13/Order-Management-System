@@ -6,8 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Dropdown} from "react-bootstrap";
+import {Dropdown, Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import {SERVER_URL} from "../constants/serverconstants";
+import Modal from "react-bootstrap/Modal";
 
 function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -34,24 +36,60 @@ const detailTableStyle = {
 };
 
 
-
-
-
 class OrderDetailTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
             order_games: props.order_games,
-            currentId: 2
+            order_id: parseInt(props.order_id),
+            isOpen: false
         }
+        this.updateCallback = props.updateCallback
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if (this.state.order_games !== nextProps.order_games) {
-            this.setState({...this.state, order_games: nextProps.order_games})
-        }
-        return true
+    handleSubmitDelete = (game_id) => {
+        alert('Do you want to delete the entire order?');
+        const that = this
+        const order_id = this.state.order_id
+        console.log("TTTTTTTTTTTTThis is order ID" + order_id)
+        fetch(`${SERVER_URL}/order_games_delete?orderID=${order_id}&gameID=${game_id}`, {
+            method: 'DELETE',
+        }).then(res => res.json())
+            .then(function (response) {
+                that.updateCallback(response.order_games)
+                //that.setState({...that.state, order_games: response.order_games})
+                console.log("This is response: " + response.order_games)
+            });
     }
+
+    openModal = () => this.setState({...this.state, isOpen: true});
+    closeModal = () => this.setState({...this.state, isOpen: false});
+
+    handleChange = (event) => {
+        let fieldName = event.target.name;
+        let fieldValue = event.target.value;
+        this.setState({...this.state, [fieldName]: fieldValue})
+    }
+
+    handleSubmitUpdate = (game_id) => {
+        console.log("*********" + game_id)
+
+        const that = this
+
+        fetch(`${SERVER_URL}/order_games_quantity`, {
+            method: 'PUT',
+            // convert the React state to JSON and send it as the POST body
+            body: JSON.stringify({order_id: this.state.order_id, game_id: game_id, quantity: this.state.quantity}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(function (response) {
+
+            });
+    }
+
 
     //
     // onRowAdd() {
@@ -71,9 +109,6 @@ class OrderDetailTable extends Component {
     // {/*</Button>*/}
 
     render() {
-        this.state.order_games.map((game) => (
-            console.log("This is order_gamess:  " + JSON.stringify(game))
-        ))
         return (
             <div>
                 <TableContainer component={Paper} style={detailTableStyle}>
@@ -91,7 +126,7 @@ class OrderDetailTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.order_games.map((row) =>(
+                            {this.props.order_games.map((row) => (
                                 <TableRow key={row.game_id}>
                                     <TableCell>{row.game_id}</TableCell>
                                     <TableCell align="left">Game name</TableCell>
@@ -105,8 +140,25 @@ class OrderDetailTable extends Component {
                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Edit quantity</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+                                                <Dropdown.Item onClick={this.openModal}>Edit quantity</Dropdown.Item>
+                                                <Modal show={this.state.isOpen} onHide={this.closeModal}>
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title>Edit Quantity</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Form onSubmit={this.handleSubmitUpdate.bind(this, row.game_id)}>
+                                                        <Modal.Body>
+                                                            <Form.Control type="quantity" name="quantity"
+                                                                          placeholder="Enter how many"
+                                                                          onChange={this.handleChange.bind(this)}
+                                                                          required/>
+                                                        </Modal.Body>
+                                                        <Modal.Footer>
+                                                            <Button variant="primary" type="submit"> Submit </Button>
+                                                        </Modal.Footer>
+                                                    </Form>
+                                                </Modal>
+                                                <Dropdown.Item
+                                                    onClick={this.handleSubmitDelete.bind(this, row.game_id)}>Delete</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </TableCell>

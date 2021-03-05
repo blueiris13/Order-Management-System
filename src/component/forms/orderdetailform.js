@@ -4,11 +4,13 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import {SERVER_URL} from "../../constants/serverconstants";
 
+const INVALID_GAME_ID = -1
+
 class OrderDetailForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {games: [], quantity: '', order_id: parseInt(props.orderId)};
+        this.state = {games: [], quantity: '', order_id: parseInt(props.order_id)};
         this.onOrderGamesAdded = props.onOrderGamesAdded;
     }
 
@@ -33,7 +35,13 @@ class OrderDetailForm extends Component {
             });
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = () => {
+        const gameID = this.state.game_id
+        const isGameIdUndefined = !gameID
+        if (gameID === INVALID_GAME_ID || isGameIdUndefined) {
+            alert('Please select a game!');
+            return
+        }
         alert('Ok to Submit?');
 
         const that = this
@@ -51,8 +59,6 @@ class OrderDetailForm extends Component {
                 that.onOrderGamesAdded(response.order_games)
                 return response.order_games;
             });
-
-        event.preventDefault();
     }
 
     render() {
@@ -69,7 +75,7 @@ class OrderDetailForm extends Component {
                     <Form.Group as={Col} controlId="formOrderGameID">
                         <Form.Label>Game Name</Form.Label>
                         <Form.Control as="select" name="game_id" defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required>
-                            <option> Select </option>
+                            <option key={INVALID_GAME_ID}> Select </option>
                             {optionItems}
                         </Form.Control>
                     </Form.Group>

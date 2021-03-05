@@ -19,6 +19,10 @@ CREATE functionality works when the "Add New Order" button is clicked. This will
 This is expected behavior. Users will be able to update/edit the data in the Order Details page in the final version.<br>
 READ functionality works. The existing/newly added data will appear on the Orders table.
 
+UPDATE customer_id works.
+DELETE an order works.
+
+
 Related files - home.js, helloworld.js, hometable.js 
 
 #### Order Details 

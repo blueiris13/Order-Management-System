@@ -18,11 +18,14 @@ const orderDetailInfoContainer = {
 
 const buttonContainerStyle = {
     padding: "15px",
+
 }
 
 const buttonStyle = {
     margin: "7px",
 }
+
+const GUEST_CUSTOMER_ID = -1
 
 class OrderDetail extends Component {
     static propTypes = {
@@ -143,7 +146,7 @@ class OrderDetail extends Component {
     // }
 
     // Get new customers data from the Order_Games form page.
-    onOrderGamesAdded = (order_games) => {
+    onOrderGamesChanged = (order_games) => {
         this.setState({...this.state, order_games: order_games})
     }
 
@@ -152,7 +155,7 @@ class OrderDetail extends Component {
         let customers = this.state.customers;
         let optionItems = []
         if (this.state.customer_fetched) {
-            optionItems.push(<option>Guest</option>)
+            optionItems.push(<option key={GUEST_CUSTOMER_ID}>Guest</option>)
         }
         customers.forEach((customer) => {
             optionItems.push(<option key={customer.customer_id}
@@ -163,7 +166,7 @@ class OrderDetail extends Component {
                 <h1>Order Detail</h1>
                 <br>
                 </br>
-                <OrderDetailForm onOrderGamesAdded={this.onOrderGamesAdded.bind(this)} orderId={this.state.order_id}/>
+                <OrderDetailForm onOrderGamesAdded={this.onOrderGamesChanged.bind(this)} order_id={this.state.order_id}/>
                 <br>
                 </br>
                 <div style={orderDetailInfoContainer}>
@@ -173,7 +176,7 @@ class OrderDetail extends Component {
                     <h5 align="left">
                         <Form onSubmit={this.handleSubmitCustomer}>
                             <Form.Row>
-                                <Form.Label> Customer Name : </Form.Label>
+                                <Form.Label>Customer Name :</Form.Label>
                                 <Col xs={3}>
                                     <Form.Control as="select" name="customer_id" value={this.state.customer_id}
                                                   onChange={this.handleChange.bind(this)}
@@ -198,8 +201,7 @@ class OrderDetail extends Component {
                     </Button>
                     </Form>
                 </div>
-                <OrderDetailTable order_games={this.state.order_games}/>
-
+                <OrderDetailTable order_games={this.state.order_games} order_id={this.state.order_id} updateCallback={this.onOrderGamesChanged.bind(this)}/>
             </div>
         )
     }
