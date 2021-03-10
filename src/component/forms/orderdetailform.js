@@ -35,7 +35,8 @@ class OrderDetailForm extends Component {
             });
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event) => {
+
         const gameID = this.state.game_id
         const isGameIdUndefined = !gameID
         if (gameID === INVALID_GAME_ID || isGameIdUndefined) {
@@ -45,7 +46,7 @@ class OrderDetailForm extends Component {
         alert('Ok to Submit?');
 
         const that = this
-
+        console.log("handle submit: " + JSON.stringify(this.state))
         fetch(`${SERVER_URL}/order_games`, {
             method: 'POST',
             // We convert the React state to JSON and send it as the POST body
@@ -57,8 +58,9 @@ class OrderDetailForm extends Component {
         }).then(res => res.json())
             .then(function (response) {
                 that.onOrderGamesAdded(response.order_games)
-                return response.order_games;
             });
+
+        event.preventDefault();
     }
 
     render() {
@@ -74,8 +76,9 @@ class OrderDetailForm extends Component {
                 <Form.Row>
                     <Form.Group as={Col} controlId="formOrderGameID">
                         <Form.Label>Game Name</Form.Label>
-                        <Form.Control as="select" name="game_id" defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required>
-                            <option key={INVALID_GAME_ID}> Select </option>
+                        <Form.Control as="select" name="game_id" defaultValue={this.state.name}
+                                      onChange={this.handleChange.bind(this)} required>
+                            <option key={INVALID_GAME_ID}> Select</option>
                             {optionItems}
                         </Form.Control>
                     </Form.Group>

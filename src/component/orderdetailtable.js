@@ -48,17 +48,15 @@ class OrderDetailTable extends Component {
     }
 
     handleSubmitDelete = (game_id) => {
-        alert('Do you want to delete the entire order?');
+        alert('Do you want to delete this game?');
         const that = this
         const order_id = this.state.order_id
-        console.log("TTTTTTTTTTTTThis is order ID" + order_id)
         fetch(`${SERVER_URL}/order_games_delete?orderID=${order_id}&gameID=${game_id}`, {
             method: 'DELETE',
         }).then(res => res.json())
             .then(function (response) {
                 that.updateCallback(response.order_games)
                 //that.setState({...that.state, order_games: response.order_games})
-                console.log("This is response: " + response.order_games)
             });
     }
 
@@ -71,8 +69,8 @@ class OrderDetailTable extends Component {
         this.setState({...this.state, [fieldName]: fieldValue})
     }
 
-    handleSubmitUpdate = (game_id) => {
-        console.log("*********" + game_id)
+    handleSubmitUpdate = (event, game_id) => {
+        event.preventDefault();
 
         const that = this
 
@@ -86,11 +84,12 @@ class OrderDetailTable extends Component {
             }
         }).then(res => res.json())
             .then(function (response) {
-
+                that.setState({...that.state, isOpen: false})
+                that.updateCallback(response.order_games)
             });
     }
 
-
+1
     //
     // onRowAdd() {
     //     console.log('add button clicked')
@@ -109,6 +108,11 @@ class OrderDetailTable extends Component {
     // {/*</Button>*/}
 
     render() {
+        console.log("hello!!! " + JSON.stringify(this.props.order_games))
+        let invoiceTotal = 0
+        this.props.order_games.forEach(row => {
+            invoiceTotal += row.quantity * row.price
+        })
         return (
             <div>
                 <TableContainer component={Paper} style={detailTableStyle}>
@@ -126,15 +130,15 @@ class OrderDetailTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.order_games.map((row) => (
+                            {this.props.order_games.map((row) =>
                                 <TableRow key={row.game_id}>
                                     <TableCell>{row.game_id}</TableCell>
-                                    <TableCell align="left">Game name</TableCell>
+                                    <TableCell align="left">{row.name}</TableCell>
                                     <TableCell align="center">{row.quantity}</TableCell>
-                                    {/*<TableCell align="center">{row.unit}</TableCell>*/}
+                                    <TableCell align="center">{row.price}</TableCell>
                                     {/*<TableCell align="center">{ccyFormat(row)}</TableCell>*/}
-                                    <TableCell align="center">{0}</TableCell>
-                                    <TableCell align="center">{0}</TableCell>
+                                    {/*<TableCell align="center">{0}</TableCell>*/}
+                                    <TableCell align="center">{row.quantity * row.price}</TableCell>
                                     <TableCell align="right">
                                         <Dropdown>
                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -145,7 +149,7 @@ class OrderDetailTable extends Component {
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Edit Quantity</Modal.Title>
                                                     </Modal.Header>
-                                                    <Form onSubmit={this.handleSubmitUpdate.bind(this, row.game_id)}>
+                                                    <Form onSubmit={(event) => {this.handleSubmitUpdate(event, row.game_id)}}>
                                                         <Modal.Body>
                                                             <Form.Control type="quantity" name="quantity"
                                                                           placeholder="Enter how many"
@@ -163,12 +167,11 @@ class OrderDetailTable extends Component {
                                         </Dropdown>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )}
 
                             <TableRow>
                                 <TableCell colSpan={4} align="right">Total</TableCell>
-                                <TableCell colSpan={2} align="right">0</TableCell>
-                                {/*<TableCell colSpan={2} align="right">{ccyFormat(invoiceTotal)}</TableCell>*/}
+                                <TableCell colSpan={2} align="right">{ccyFormat(invoiceTotal)}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

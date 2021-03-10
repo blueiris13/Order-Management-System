@@ -26,8 +26,9 @@ class Home extends Component {
         }
     }
 
-    onGoToOrderDetail = (orderID, customerID) => {
-        this.props.history.push(`/order-detail?orderID=${orderID}&customerID=${customerID}`);
+    onGoToOrderDetail = (orderID, customerID, orderDate) => {
+        this.props.history.push(`/order-detail?orderID=${orderID}&customerID=${customerID}&orderDate=${orderDate}`);
+        console.log("this is order Date. " + orderDate)
     }
 
     // Get all existing Orders data when the page is loaded.
@@ -44,7 +45,7 @@ class Home extends Component {
             });
     }
 
-
+    // Event listener for "Add New Order" button.
     handleSubmit = (event) => {
         alert('Create New Order?');
 

@@ -12,8 +12,9 @@ import {Form} from "react-bootstrap";
 
 const orderDetailInfoContainer = {
     width: "90%",
-    padding: "6px",
-    justifyContent: "flex-start"
+    padding: "7px",
+    justifyContent: "flex-start",
+    alignItems: "left",
 };
 
 const buttonContainerStyle = {
@@ -45,6 +46,7 @@ class OrderDetail extends Component {
             customer_id: parsed.customerID,
             games: [],
             order_id: parsed.orderID,
+            order_date: parsed.orderDate,
             customer_fetched: false
         }
     }
@@ -63,6 +65,7 @@ class OrderDetail extends Component {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
+                console.log("got right data? " + JSON.stringify(response.order_games))
                 context.setState({...context.state, order_games: response.order_games})
             });
     }
@@ -113,7 +116,7 @@ class OrderDetail extends Component {
         event.preventDefault();
     }
 
-    goBack(){
+    goBack() {
         this.props.history.goBack('/');
     }
 
@@ -166,7 +169,8 @@ class OrderDetail extends Component {
                 <h1>Order Detail</h1>
                 <br>
                 </br>
-                <OrderDetailForm onOrderGamesAdded={this.onOrderGamesChanged.bind(this)} order_id={this.state.order_id}/>
+                <OrderDetailForm onOrderGamesAdded={this.onOrderGamesChanged.bind(this)}
+                                 order_id={this.state.order_id}/>
                 <br>
                 </br>
                 <div style={orderDetailInfoContainer}>
@@ -176,7 +180,7 @@ class OrderDetail extends Component {
                     <h5 align="left">
                         <Form onSubmit={this.handleSubmitCustomer}>
                             <Form.Row>
-                                <Form.Label>Customer Name :</Form.Label>
+                                <Form.Label>Customer Name : </Form.Label>
                                 <Col xs={3}>
                                     <Form.Control as="select" name="customer_id" value={this.state.customer_id}
                                                   onChange={this.handleChange.bind(this)}
@@ -192,16 +196,17 @@ class OrderDetail extends Component {
                     </h5>
                 </div>
                 <div style={orderDetailInfoContainer}>
-                    <h5 align="left">Order Date : </h5>
+                    <h5 align="left">Order Date : {this.state.order_date}</h5>
                 </div>
                 <div align="right" style={buttonContainerStyle}>
                     <Form onSubmit={this.handleSubmitDelete}>
-                    <Button variant="outline-danger" type="submit" style={buttonStyle}>
-                        Delete Entire Order
-                    </Button>
+                        <Button variant="outline-danger" type="submit" style={buttonStyle}>
+                            Delete Entire Order
+                        </Button>
                     </Form>
                 </div>
-                <OrderDetailTable order_games={this.state.order_games} order_id={this.state.order_id} updateCallback={this.onOrderGamesChanged.bind(this)}/>
+                <OrderDetailTable order_games={this.state.order_games} order_id={this.state.order_id}
+                                  updateCallback={this.onOrderGamesChanged.bind(this)}/>
             </div>
         )
     }

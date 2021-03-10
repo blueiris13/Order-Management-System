@@ -27,61 +27,66 @@ class GameForm extends Component {
             method: 'POST',
             // convert the React state to JSON and send it as the POST body
             body: JSON.stringify(this.state),
-            headers : {
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         }).then(res => res.json())
-            .then(function(response) {
-            that.onGameAdded(response.games);
-            return response.games;
-        });
+            .then(function (response) {
+                that.onGameAdded(response.games);
+                return response.games;
+            });
 
         event.preventDefault();
     }
 
     render() {
         return (
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGameName">
-                            <Form.Label>Game Name</Form.Label>
-                            <Form.Control type="name" name="name" placeholder="Enter game name" defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required />
-                        </Form.Group>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGameName">
+                        <Form.Label>Game Name</Form.Label>
+                        <Form.Control type="name" name="name" placeholder="Enter game name"
+                                      defaultValue={this.state.name} onChange={this.handleChange.bind(this)} required/>
+                    </Form.Group>
 
-                        <Form.Group as={Col} controlId="formGameGenre">
-                            <Form.Label>Genre</Form.Label>
-                            <Form.Control type="genre" name="genre" placeholder="Enter genre" defaultValue={this.state.genre} onChange={this.handleChange.bind(this)} required/>
-                        </Form.Group>
+                    <Form.Group as={Col} controlId="formGameGenre">
+                        <Form.Label>Genre</Form.Label>
+                        <Form.Control type="genre" name="genre" placeholder="Enter genre"
+                                      defaultValue={this.state.genre} onChange={this.handleChange.bind(this)} required/>
+                    </Form.Group>
 
-                        <Form.Group as={Col} controlId="formGamePrice">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control type="price" name="price" placeholder="Enter price" defaultValue={this.state.price} onChange={this.handleChange.bind(this)} required/>
-                        </Form.Group>
-                    </Form.Row>
+                    <Form.Group as={Col} controlId="formGamePrice">
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control type="price" name="price" placeholder="Enter price"
+                                      defaultValue={this.state.price} onChange={this.handleChange.bind(this)} required/>
+                    </Form.Group>
+                </Form.Row>
 
-                    <Form.Row>
-                            <Form.Group as={Col} controlId="formGameOffline">
-                                <Form.Label>Offline Availability</Form.Label>
-                                <Form.Control as="select" name="offline" defaultValue={this.state.offline} onChange={this.handleChange.bind(this)} required>
-                                    <option> Select </option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group as={Col} controlId="formGamePlatform">
-                                <Form.Label>Platform</Form.Label>
-                                <Form.Control as="select" name="platform" defaultValue={this.state.platform} onChange={this.handleChange.bind(this)} required>
-                                    <option> Select </option>
-                                    <option value="Desktop">Desktop</option>
-                                    <option value="Phone">Phone</option>
-                                </Form.Control>
-                            </Form.Group>
-                    </Form.Row>
-                    <Button variant="primary" type="submit">
-                        Add a Game
-                    </Button>
-                </Form>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGameOffline">
+                        <Form.Label>Offline Availability</Form.Label>
+                        <Form.Control as="select" name="offline" defaultValue={this.state.offline}
+                                      onChange={this.handleChange.bind(this)} required>
+                            <option> Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGamePlatform">
+                        <Form.Label>Platform</Form.Label>
+                        <Form.Control as="select" name="platform" defaultValue={this.state.platform}
+                                      onChange={this.handleChange.bind(this)} required>
+                            <option> Select</option>
+                            <option value="Desktop">Desktop</option>
+                            <option value="Phone">Phone</option>
+                        </Form.Control>
+                    </Form.Group>
+                </Form.Row>
+                <Button variant="primary" type="submit">
+                    Add a Game
+                </Button>
+            </Form>
         );
     }
 }
