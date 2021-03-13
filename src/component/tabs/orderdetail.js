@@ -65,7 +65,6 @@ class OrderDetail extends Component {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
-                console.log("got right data? " + JSON.stringify(response.order_games))
                 context.setState({...context.state, order_games: response.order_games})
             });
     }

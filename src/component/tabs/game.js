@@ -14,21 +14,27 @@ class Game extends Component {
 
     // Get all existing Games data when the page is loaded.
     componentDidMount() {
-        this.fetchAllGame(this)
+        this.fetchAllGame()
     }
 
-    fetchAllGame = (context) => {
+    fetchAllGame = () => {
+        console.log("fetchAllGame!!")
+        const that = this
         fetch(`${SERVER_URL}/games`, {
             method: 'GET',
             // We convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
             .then(function (response) {
-                context.setState({...context.state, games: response.games})
+                that.setState({...that.state, games: response.games})
             });
     }
 
     // Get new game data from the Game form page.
     onGameAdded = (games) => {
+        this.setState({...this.state, games: games})
+    }
+
+    onSearchFind = (games) => {
         this.setState({...this.state, games: games})
     }
 
@@ -43,7 +49,7 @@ class Game extends Component {
                 <GameForm onGameAdded={this.onGameAdded.bind(this)}/>
                 <br>
                 </br>
-                <GameSearch/>
+                <GameSearch onSearchFind={this.onSearchFind.bind(this)} onResetGamesTable={this.fetchAllGame.bind(this)}/>
                 <GameTable games={this.state.games}/>
             </div>
         )

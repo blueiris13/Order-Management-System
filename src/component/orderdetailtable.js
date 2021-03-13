@@ -108,7 +108,6 @@ class OrderDetailTable extends Component {
     // {/*</Button>*/}
 
     render() {
-        console.log("hello!!! " + JSON.stringify(this.props.order_games))
         let invoiceTotal = 0
         this.props.order_games.forEach(row => {
             invoiceTotal += row.quantity * row.price

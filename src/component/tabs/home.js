@@ -17,6 +17,28 @@ const formContainerStyle = {
     justifyContent: "flex-end"
 };
 
+// let date;
+// date = new Date();
+// date = date.getUTCFullYear() + '-' +
+//     ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+//     ('00' + date.getUTCDate()).slice(-2) + ' ' +
+//     ('00' + date.getUTCHours()).slice(-2) + ':' +
+//     ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+//     ('00' + date.getUTCSeconds()).slice(-2);
+
+let today = new Date();
+let date = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
+
+function addZero(time) {
+    if (time < 10) {
+        time = "0" + time;
+    }
+    return time;
+}
+
+let time = addZero(today.getUTCHours()) + ":" + addZero(today.getUTCMinutes()) + ":" + addZero(today.getUTCSeconds());
+
+
 
 class Home extends Component {
     constructor(props) {
@@ -28,7 +50,6 @@ class Home extends Component {
 
     onGoToOrderDetail = (orderID, customerID, orderDate) => {
         this.props.history.push(`/order-detail?orderID=${orderID}&customerID=${customerID}&orderDate=${orderDate}`);
-        console.log("this is order Date. " + orderDate)
     }
 
     // Get all existing Orders data when the page is loaded.
@@ -50,11 +71,13 @@ class Home extends Component {
         alert('Create New Order?');
 
         const that = this
-
+        console.log(date + ' ' + time);
         fetch(`${SERVER_URL}/orders`, {
             method: 'POST',
             // convert the React state to JSON and send it as the POST body
-            body: JSON.stringify({customer_id: null, order_date: '2021-01-01 10:10:10'}),
+
+            //Current date and time
+            body: JSON.stringify({customer_id: null, order_date: date + ' ' + time}),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -62,6 +85,8 @@ class Home extends Component {
         }).then(res => res.json())
             .then(function (response) {
                 that.onOrderAdded(response.orders)
+                console.log(JSON.stringify(response.orders))
+
                 return response.orders;
             });
 
