@@ -20,13 +20,13 @@ const searchBoxStyle = {
     display: "inline-block"
 }
 
-class GameSearch extends Component {
+class SearchForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {search_value: ''};
-        this.onSearchFind = props.onSearchFind;
-        this.onResetGamesTable = props.onResetGamesTable;
+        this.handleSearchSubmit = props.handleSearchSubmit;
+        this.onResetTable = props.onResetTable;
     }
 
 
@@ -34,30 +34,16 @@ class GameSearch extends Component {
         this.setState({...this.state, search_value: event.target.value});
     }
 
-    handleSearchSubmit = (event) => {
-        const that = this
-        fetch(`${SERVER_URL}/games_search?query=${this.state.search_value}`, {
-            method: 'GET',
-            // convert the React state to JSON and send it as the POST body
-        }).then(res => res.json())
-            .then(function (response) {
-                that.onSearchFind(response.games);
-                return response.games;
-            });
-
-        event.preventDefault();
-    }
-
     resetSearch = () => {
         this.setState({...this.state, search_value: ""});
-        this.onResetGamesTable(this);
+        this.onResetTable(this);
     }
 
     render() {
         return (
             <div style={searchContainerStyle}>
-                <Form onSubmit={this.handleSearchSubmit}>
-                    <Form.Group controlId="gameSearchForm" style={searchBoxStyle}>
+                <Form onSubmit={(event) => {this.handleSearchSubmit(event, this.state.search_value)}}>
+                    <Form.Group controlId="SearchForm" style={searchBoxStyle}>
                         <Form.Control type="search" placeholder="Search" value={this.state.search_value}
                                       onChange={this.handleChange}/>
                     </Form.Group>
@@ -74,4 +60,4 @@ class GameSearch extends Component {
     }
 }
 
-export default GameSearch;
+export default SearchForm;

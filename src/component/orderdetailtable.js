@@ -71,6 +71,7 @@ class OrderDetailTable extends Component {
 
     handleSubmitUpdate = (event, game_id) => {
         event.preventDefault();
+        console.log("this is selected game ID: " + game_id)
 
         const that = this
 
@@ -89,24 +90,6 @@ class OrderDetailTable extends Component {
             });
     }
 
-1
-    //
-    // onRowAdd() {
-    //     console.log('add button clicked')
-    //     const newRows = this.state.order_games
-    //     const newId = this.state.currentId + 1
-    //     const fakeRow = createRow(newId, 'New Game', 1, 1)
-    //     newRows.push(fakeRow)
-    //     this.setState({
-    //         order_games: newRows,
-    //         currentId: newId
-    //     })
-    // }
-
-    // {/*<Button variant="primary" type="submit" onClick={this.onRowAdd.bind(this)}>*/}
-    // {/*    +*/}
-    // {/*</Button>*/}
-
     render() {
         let invoiceTotal = 0
         this.props.order_games.forEach(row => {
@@ -123,20 +106,20 @@ class OrderDetailTable extends Component {
                                 <TableCell>Game ID</TableCell>
                                 <TableCell>Game Name</TableCell>
                                 <TableCell align="center">Qty.</TableCell>
-                                <TableCell align="center">Unit</TableCell>
+                                <TableCell align="center">Unit Price</TableCell>
                                 <TableCell align="center">Price</TableCell>
-                                <TableCell></TableCell>
+                                <TableCell/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.order_games.map((row) =>
-                                <TableRow key={row.game_id}>
+                            {this.props.order_games.map((row) => {
+                                return (<TableRow key={row.game_id} onClick={(event => {
+                                    console.log(`TableRowClicked=${JSON.stringify(row)}`)
+                                })}>
                                     <TableCell>{row.game_id}</TableCell>
                                     <TableCell align="left">{row.name}</TableCell>
                                     <TableCell align="center">{row.quantity}</TableCell>
                                     <TableCell align="center">{row.price}</TableCell>
-                                    {/*<TableCell align="center">{ccyFormat(row)}</TableCell>*/}
-                                    {/*<TableCell align="center">{0}</TableCell>*/}
                                     <TableCell align="center">{row.quantity * row.price}</TableCell>
                                     <TableCell align="right">
                                         <Dropdown>
@@ -148,7 +131,7 @@ class OrderDetailTable extends Component {
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Edit Quantity</Modal.Title>
                                                     </Modal.Header>
-                                                    <Form onSubmit={(event) => {this.handleSubmitUpdate(event, row.game_id)}}>
+                                                    <Form>
                                                         <Modal.Body>
                                                             <Form.Control type="quantity" name="quantity"
                                                                           placeholder="Enter how many"
@@ -156,7 +139,10 @@ class OrderDetailTable extends Component {
                                                                           required/>
                                                         </Modal.Body>
                                                         <Modal.Footer>
-                                                            <Button variant="primary" type="submit"> Submit </Button>
+                                                            <Button variant="primary" type="submit"
+                                                                    onClick={(event) => {
+                                                                        this.handleSubmitUpdate(event, row.game_id)
+                                                                    }}> Submit </Button>
                                                         </Modal.Footer>
                                                     </Form>
                                                 </Modal>
@@ -165,7 +151,7 @@ class OrderDetailTable extends Component {
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </TableCell>
-                                </TableRow>
+                                </TableRow>)}
                             )}
 
                             <TableRow>

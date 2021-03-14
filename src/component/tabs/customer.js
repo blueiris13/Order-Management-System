@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import CustomerTable from "../customertable"
 import CustomerForm from "../forms/customerform";
-import CustomerSearch from "../search/customersearch";
 import {SERVER_URL} from "../../constants/serverconstants";
+import SearchForm from "../search/searchForm";
 
 class Customer extends Component {
     constructor(props) {
@@ -14,21 +14,41 @@ class Customer extends Component {
 
     // Get all existing Customers data when the page is loaded.
     componentDidMount() {
-        this.fetchAllCustomer(this)
+        this.fetchAllCustomer()
     }
 
     fetchAllCustomer = (context) => {
+        const that = this
         fetch(`${SERVER_URL}/customers`, {
             method: 'GET'
         }).then(res => res.json())
             .then(function (response) {
-                context.setState({...context.state, customers: response.customers})
+                that.setState({...that.state, customers: response.customers})
             });
     }
     // Get new customers data from the Customer form page.
     onCustomerAdded = (customers) => {
         this.setState({...this.state, customers: customers})
     }
+
+    onSearchFind = (customers) => {
+        this.setState({...this.state, customers: customers})
+    }
+
+    handleSearchSubmit = (event, query) => {
+        const that = this
+        fetch(`${SERVER_URL}/customers_search?query=${query}`, {
+            method: 'GET',
+            // convert the React state to JSON and send it as the POST body
+        }).then(res => res.json())
+            .then(function (response) {
+                that.onSearchFind(response.customers);
+                return response.customers;
+            });
+
+        event.preventDefault();
+    }
+
 
     render() {
         return (
@@ -41,7 +61,7 @@ class Customer extends Component {
                 <CustomerForm onCustomerAdded={this.onCustomerAdded.bind(this)}/>
                 <br>
                 </br>
-                <CustomerSearch/>
+                <SearchForm handleSearchSubmit={this.handleSearchSubmit.bind(this)} onResetTable={this.fetchAllCustomer.bind(this)}/>
                 <CustomerTable customers={this.state.customers}/>
             </div>
         )

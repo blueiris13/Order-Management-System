@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import GameTable from "../gametable"
 import GameForm from "../forms/gameform";
-import GameSearch from "../search/gamesearch";
+import SearchForm from "../search/searchForm";
 import {SERVER_URL} from "../../constants/serverconstants";
 
 class Game extends Component {
@@ -18,7 +18,6 @@ class Game extends Component {
     }
 
     fetchAllGame = () => {
-        console.log("fetchAllGame!!")
         const that = this
         fetch(`${SERVER_URL}/games`, {
             method: 'GET',
@@ -38,6 +37,20 @@ class Game extends Component {
         this.setState({...this.state, games: games})
     }
 
+    handleSearchSubmit = (event, query) => {
+        const that = this
+        fetch(`${SERVER_URL}/games_search?query=${query}`, {
+            method: 'GET',
+            // convert the React state to JSON and send it as the POST body
+        }).then(res => res.json())
+            .then(function (response) {
+                that.onSearchFind(response.games);
+                return response.games;
+            });
+
+        event.preventDefault();
+    }
+
     render() {
         return (
             <div className='hello-world'>
@@ -49,7 +62,7 @@ class Game extends Component {
                 <GameForm onGameAdded={this.onGameAdded.bind(this)}/>
                 <br>
                 </br>
-                <GameSearch onSearchFind={this.onSearchFind.bind(this)} onResetGamesTable={this.fetchAllGame.bind(this)}/>
+                <SearchForm handleSearchSubmit={this.handleSearchSubmit.bind(this)} onResetTable={this.fetchAllGame.bind(this)}/>
                 <GameTable games={this.state.games}/>
             </div>
         )
