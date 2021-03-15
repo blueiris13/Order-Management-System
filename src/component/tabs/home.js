@@ -5,6 +5,7 @@ import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {SERVER_URL} from "../../constants/serverconstants";
 
+// CSS Styling
 const formStyle = {
     display: "inline",
     padding: "4px"
@@ -17,18 +18,7 @@ const formContainerStyle = {
     justifyContent: "flex-end"
 };
 
-// let date;
-// date = new Date();
-// date = date.getUTCFullYear() + '-' +
-//     ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
-//     ('00' + date.getUTCDate()).slice(-2) + ' ' +
-//     ('00' + date.getUTCHours()).slice(-2) + ':' +
-//     ('00' + date.getUTCMinutes()).slice(-2) + ':' +
-//     ('00' + date.getUTCSeconds()).slice(-2);
-
-let today = new Date();
-let date = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
-
+// Function to add 0 in front of the number(time), if the number is less than 10.
 function addZero(time) {
     if (time < 10) {
         time = "0" + time;
@@ -36,8 +26,12 @@ function addZero(time) {
     return time;
 }
 
-let time = addZero(today.getUTCHours()) + ":" + addZero(today.getUTCMinutes()) + ":" + addZero(today.getUTCSeconds());
+// Get current UTC date in "YYYY-MM-DD" format.
+let today = new Date();
+let date = today.getUTCFullYear() + '-' + (today.getUTCMonth() + 1) + '-' + today.getUTCDate();
 
+// Get current UTC time in "00:00:00" format.
+let time = addZero(today.getUTCHours()) + ":" + addZero(today.getUTCMinutes()) + ":" + addZero(today.getUTCSeconds());
 
 
 class Home extends Component {
@@ -48,6 +42,7 @@ class Home extends Component {
         }
     }
 
+    // Function to direct to the Order Detail page and add Order ID, Customer ID, Order Date in the queries.
     onGoToOrderDetail = (orderID, customerID, orderDate) => {
         this.props.history.push(`/order-detail?orderID=${orderID}&customerID=${customerID}&orderDate=${orderDate}`);
     }
@@ -57,6 +52,7 @@ class Home extends Component {
         this.fetchAllOrders(this)
     }
 
+    // Function to get all existing Orders data from the Orders table in the database.
     fetchAllOrders = (context) => {
         fetch(`${SERVER_URL}/orders`, {
             method: 'GET'
@@ -71,12 +67,8 @@ class Home extends Component {
         alert('Create New Order?');
 
         const that = this
-        console.log(date + ' ' + time);
         fetch(`${SERVER_URL}/orders`, {
             method: 'POST',
-            // convert the React state to JSON and send it as the POST body
-
-            //Current date and time
             body: JSON.stringify({customer_id: null, order_date: date + ' ' + time}),
             headers: {
                 'Content-Type': 'application/json',
@@ -85,14 +77,13 @@ class Home extends Component {
         }).then(res => res.json())
             .then(function (response) {
                 that.onOrderAdded(response.orders)
-                console.log(JSON.stringify(response.orders))
-
                 return response.orders;
             });
 
         event.preventDefault();
     }
 
+    // Function to set the Orders to the state.
     onOrderAdded = (orders) => {
         this.setState({...this.state, orders: orders})
     }

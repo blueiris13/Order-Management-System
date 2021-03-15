@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import {Form} from "react-bootstrap";
 
-
+// CSS Styling
 const orderDetailInfoContainer = {
     width: "90%",
     padding: "7px",
@@ -40,24 +40,27 @@ class OrderDetail extends Component {
         const {location} = this.props
         const parsed = qs.parse(location.search);
         this.goBack = this.goBack.bind(this);
+        let order_date = parsed.orderDate
+        order_date = order_date.slice(0, 10) + " " + order_date.slice(11, 19) + " UTC"
+
         this.state = {
             order_games: [],
             customers: [],
             customer_id: parsed.customerID,
             games: [],
             order_id: parsed.orderID,
-            order_date: parsed.orderDate,
+            order_date: order_date,
             customer_fetched: false
         }
     }
 
-    // Get selected Order_Games and all Customers data when the page is loaded.
+    // Get selected Order_Games and all Customers data from the database when the page is loaded.
     componentDidMount() {
         this.fetchAllOrder(this)
         this.fetchAllCustomer(this)
     }
 
-    // Get order_games info
+    // Get selected Order_Games info from the Order_Games table in the database.
     fetchAllOrder = (context) => {
         const order_id = this.state.order_id
         const order_games_url = `${SERVER_URL}/order_games?order_id=${order_id}`
@@ -69,23 +72,21 @@ class OrderDetail extends Component {
             });
     }
 
-    // Get all customers info
+    // Get all customers info from the Customers table in the database. This is to display the select options for the Customer Name.
     fetchAllCustomer = (context) => {
         fetch(`${SERVER_URL}/customers`, {
             method: 'GET',
-            // We convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
             .then(function (response) {
                 context.setState({...context.state, customers: response.customers, customer_fetched: true})
             });
     }
 
-    // handleSubmit for Updating customer info in Orders table
+    // Event listener for "Update" button right next to Customer Name. This is to update customer_id in Orders table.
     handleSubmitCustomer = (event) => {
         alert('Ok to Submit?');
         fetch(`${SERVER_URL}/order_customer`, {
             method: 'PUT',
-            // We convert the React state to JSON and send it as the POST body
             body: JSON.stringify({customer_id: this.state.customer_id, order_id: this.state.order_id}),
             headers: {
                 'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ class OrderDetail extends Component {
         event.preventDefault();
     }
 
-    // handleSubmit for deleting an order from Orders table
+    // Even listener for "Delete Entire Order" button. This is to delete an order from Orders table.
     handleSubmitDelete = (event) => {
         alert('Do you want to delete the entire order?');
         const that = this
@@ -115,45 +116,25 @@ class OrderDetail extends Component {
         event.preventDefault();
     }
 
+    // Function to go back to the Order page.
     goBack() {
         this.props.history.goBack('/');
     }
 
+    // Onchange listener for form control.
     handleChange = (event) => {
         let fieldName = event.target.name;
         let fieldValue = event.target.value;
         this.setState({...this.state, [fieldName]: fieldValue})
     }
 
-    // fetchAllSelectedGames = (context) => {
-    //     const orderId = this.state.order_id
-    //     const orders_url = `${SERVER_URL}/order_selected?order_id=${orderId}`
-    //     fetch(orders_url, {
-    //         method: 'GET'
-    //     }).then(res => res.json())
-    //         .then(function (response) {
-    //             context.setState({...context.state, order_info: response.order_info})
-    //         });
-    // }
-
-    // fetchTheOrder = (context) => {
-    //     const orderId = this.state.order_id
-    //     const order_games_url = `${SERVER_URL}/order_games?order_id=${orderId}`
-    //     fetch(order_games_url, {
-    //         method: 'GET'
-    //     }).then(res => res.json())
-    //         .then(function (response) {
-    //             context.setState({...context.state, order_games: response.order_games})
-    //         });
-    // }
-
-    // Get new customers data from the Order_Games form page.
+    // Function to set the Order_Games to the state.
     onOrderGamesChanged = (order_games) => {
         this.setState({...this.state, order_games: order_games})
     }
 
     render() {
-        // Create dropdown menu for Customer Name
+        // Create a dropdown menu for Customer Name.
         let customers = this.state.customers;
         let optionItems = []
         if (this.state.customer_fetched) {

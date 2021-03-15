@@ -6,19 +6,20 @@ import {SERVER_URL} from "../../constants/serverconstants";
 
 
 class CustomerForm extends Component {
-
     constructor(props) {
         super(props);
         this.state = {full_name: '', email: '', blizzard_id: ''};
         this.onCustomerAdded = props.onCustomerAdded;
     }
 
+    // Handle change listener for form control.
     handleChange = (event) => {
         let fieldName = event.target.name;
         let fieldValue = event.target.value;
         this.setState({...this.state, [fieldName]: fieldValue})
     }
 
+    // Event listener for "Add a Customer" button.
     handleSubmit = (event) => {
         alert('Ok to Submit?');
 
@@ -26,7 +27,6 @@ class CustomerForm extends Component {
 
         fetch(`${SERVER_URL}/customers`, {
             method: 'POST',
-            // We convert the React state to JSON and send it as the POST body
             body: JSON.stringify(this.state),
             headers: {
                 'Content-Type': 'application/json',

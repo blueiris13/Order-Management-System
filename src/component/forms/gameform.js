@@ -5,19 +5,20 @@ import Col from "react-bootstrap/Col";
 import {SERVER_URL} from "../../constants/serverconstants";
 
 class GameForm extends Component {
-
     constructor(props) {
         super(props);
         this.state = {name: '', genre: '', price: '', offline: '', platform: ''};
         this.onGameAdded = props.onGameAdded;
     }
 
+    // Handle change listener for form control.
     handleChange = (event) => {
         let fieldName = event.target.name;
         let fieldValue = event.target.value;
         this.setState({...this.state, [fieldName]: fieldValue})
     }
 
+    // Event listener for "Add a Game" button.
     handleSubmit = (event) => {
         alert('Ok to Submit?');
 
@@ -25,7 +26,6 @@ class GameForm extends Component {
 
         fetch(`${SERVER_URL}/games`, {
             method: 'POST',
-            // convert the React state to JSON and send it as the POST body
             body: JSON.stringify(this.state),
             headers: {
                 'Content-Type': 'application/json',

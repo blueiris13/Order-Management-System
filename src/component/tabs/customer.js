@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import CustomerTable from "../customertable"
 import CustomerForm from "../forms/customerform";
 import {SERVER_URL} from "../../constants/serverconstants";
-import SearchForm from "../search/searchForm";
+import Searchform from "../search/searchform";
 
 class Customer extends Component {
     constructor(props) {
@@ -17,6 +17,7 @@ class Customer extends Component {
         this.fetchAllCustomer()
     }
 
+    // Function to get all Customers data from the database.
     fetchAllCustomer = (context) => {
         const that = this
         fetch(`${SERVER_URL}/customers`, {
@@ -26,7 +27,8 @@ class Customer extends Component {
                 that.setState({...that.state, customers: response.customers})
             });
     }
-    // Get new customers data from the Customer form page.
+
+    // Function to set the Customers to the state.
     onCustomerAdded = (customers) => {
         this.setState({...this.state, customers: customers})
     }
@@ -35,11 +37,11 @@ class Customer extends Component {
         this.setState({...this.state, customers: customers})
     }
 
+    // Event listener for "Search" button.
     handleSearchSubmit = (event, query) => {
         const that = this
         fetch(`${SERVER_URL}/customers_search?query=${query}`, {
             method: 'GET',
-            // convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
             .then(function (response) {
                 that.onSearchFind(response.customers);
@@ -61,7 +63,8 @@ class Customer extends Component {
                 <CustomerForm onCustomerAdded={this.onCustomerAdded.bind(this)}/>
                 <br>
                 </br>
-                <SearchForm handleSearchSubmit={this.handleSearchSubmit.bind(this)} onResetTable={this.fetchAllCustomer.bind(this)}/>
+                <Searchform handleSearchSubmit={this.handleSearchSubmit.bind(this)}
+                            onResetTable={this.fetchAllCustomer.bind(this)}/>
                 <CustomerTable customers={this.state.customers}/>
             </div>
         )

@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
+// Table columns
 const columns = [
     {id: 'game_id', label: 'Game ID', minWidth: 100},
     {id: 'name', label: 'Name', minWidth: 170},
@@ -19,6 +20,7 @@ const columns = [
     ,
 ];
 
+// CSS Styling
 const useStyles = theme => ({
     root: {
         width: '100%',
@@ -38,6 +40,7 @@ class GamesTable extends Component {
         }
     }
 
+    // Display the Games table with existing/newly added game data.
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if (this.state.games !== nextProps.games) {
             this.setState({...this.state, games: nextProps.games})
@@ -45,10 +48,12 @@ class GamesTable extends Component {
         return true
     }
 
+    // Event listener for new page.
     handleChangePage = (event, newPage) => {
         this.setState({...this.state, page: newPage})
     };
 
+    // Event listener for Rows per page.
     handleChangeRowsPerPage = (event) => {
         this.setState({...this.state, page: 0, rowPerPage: +event.target.value})
     };
@@ -77,7 +82,15 @@ class GamesTable extends Component {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.game_id}>
                                         {columns.map((column) => {
-                                            const value = row[column.id];
+                                            let value = row[column.id];
+                                            // If Offline data is 1, display as "Yes". If Offline data is 0, display as "No" on the table.
+                                            if (column.id === 'offline') {
+                                                if (row[column.id] === 1) {
+                                                    value = 'Yes'
+                                                } else {
+                                                    value = 'No'
+                                                }
+                                            }
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number' ? column.format(value) : value}

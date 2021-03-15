@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
+// Table columns
 const columns = [
     {id: 'customer_id', label: 'Customer ID', minWidth: 150},
     {id: 'full_name', label: 'Name', minWidth: 170},
@@ -16,6 +17,7 @@ const columns = [
     {id: 'blizzard_id', label: 'Blizzard ID', minWidth: 170},
 ];
 
+// CSS Styling
 const useStyles = theme => ({
     root: {
         width: '100%',
@@ -35,6 +37,7 @@ class CustomersTable extends Component {
         };
     }
 
+    // Display the Customers table with existing/newly added customer data.
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if (this.state.customers !== nextProps.customers) {
             this.setState({...this.state, customers: nextProps.customers})
@@ -42,10 +45,12 @@ class CustomersTable extends Component {
         return true
     }
 
+    // Event listener for new page.
     handleChangePage = (event, newPage) => {
         this.setState({...this.state, page: newPage})
     };
 
+    // Event listener for Rows per page.
     handleChangeRowsPerPage = (event) => {
         this.setState({...this.state, page: 0, rowPerPage: +event.target.value})
     };

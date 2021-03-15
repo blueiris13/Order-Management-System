@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import GameTable from "../gametable"
 import GameForm from "../forms/gameform";
-import SearchForm from "../search/searchForm";
+import Searchform from "../search/searchform";
 import {SERVER_URL} from "../../constants/serverconstants";
 
 class Game extends Component {
@@ -17,18 +17,18 @@ class Game extends Component {
         this.fetchAllGame()
     }
 
+    // Function to get all existing Games data from the database.
     fetchAllGame = () => {
         const that = this
         fetch(`${SERVER_URL}/games`, {
             method: 'GET',
-            // We convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
             .then(function (response) {
                 that.setState({...that.state, games: response.games})
             });
     }
 
-    // Get new game data from the Game form page.
+    // Function to set the Games to the state.
     onGameAdded = (games) => {
         this.setState({...this.state, games: games})
     }
@@ -37,11 +37,11 @@ class Game extends Component {
         this.setState({...this.state, games: games})
     }
 
+    // Event listener for "Search" button.
     handleSearchSubmit = (event, query) => {
         const that = this
         fetch(`${SERVER_URL}/games_search?query=${query}`, {
             method: 'GET',
-            // convert the React state to JSON and send it as the POST body
         }).then(res => res.json())
             .then(function (response) {
                 that.onSearchFind(response.games);
@@ -62,7 +62,8 @@ class Game extends Component {
                 <GameForm onGameAdded={this.onGameAdded.bind(this)}/>
                 <br>
                 </br>
-                <SearchForm handleSearchSubmit={this.handleSearchSubmit.bind(this)} onResetTable={this.fetchAllGame.bind(this)}/>
+                <Searchform handleSearchSubmit={this.handleSearchSubmit.bind(this)}
+                            onResetTable={this.fetchAllGame.bind(this)}/>
                 <GameTable games={this.state.games}/>
             </div>
         )
