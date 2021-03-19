@@ -1,16 +1,27 @@
 ## README
 
-Group 78, 
-Hyun Kim & Linshengyi Sun
+## Overview
 
-### Project Title
-Blizzard Order Management System
+A web application that simulates a sales order management system for recording sales orders of products to customers. Users can search, create, read, update, and delete (CRUD) on customers, products, and orders data.
 
 ## Project Description
 Front end code is written in React.js.<br>
 Back end code is written in Node.js.
 
 Styling: React Bootstrap and Material UI have been used for front end styling. Some additional styling has been done using CSS in javascript files.
+
+
+## Demo
+
+### Orders & Order Details
+![Orders Demo](demo/orders.gif)
+
+### Customers
+![Customers Demo](demo/customers.gif)
+
+### Games
+![Games Demo](demo/games.gif)
+
 
 ### Project Pages
 
