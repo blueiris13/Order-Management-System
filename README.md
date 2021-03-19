@@ -1,5 +1,7 @@
 ## README
 
+Note: This web app is hosted behind a private network so you cannot access it at the moment. Please see the demo section below. In a case where gif doesn’t replay automatically, try clicking on it to see the demo individually.
+
 ## Overview
 
 A web application that simulates a sales order management system for recording sales orders of products to customers. Users can search, create, read, update, and delete (CRUD) on customers, products, and orders data.
