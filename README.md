@@ -10,7 +10,7 @@ Blizzard Order Management System
 Front end code is written in React.js.<br>
 Back end code is written in Node.js.
 
-Note: React Bootstrap and Material UI have been used for front end styling. Some additional styling has been done using CSS in javascript files.
+Styling: React Bootstrap and Material UI have been used for front end styling. Some additional styling has been done using CSS in javascript files.
 
 ### Project Pages
 
@@ -25,7 +25,7 @@ CREATE: The user can add a new order by clicking "Add New Order" button. This wi
 
 READ: The existing/newly added data will appear on the Orders table.
 
-UPDATE: customer_id can be updated on the Order Detail page. Customer can be nullable when the user select "Guest".
+UPDATE: customer_id can be updated on the Order Detail page. Customer can be nullable when the user selects "Guest".
 
 DELETE: An order can be deleted when the user clicks "Delete Entire Order" button on the Order Detail page.
 
@@ -39,14 +39,14 @@ CREATE/READ/UPDATE/DELETE works.
 
 Description:
 
-CREATE: The user can add a new row into the order_games table with the Order Details form.<br>
-*Note: Game Id(Game) can only be added once per order_id. If the user try to add a game that's already been added, the quantity will be added to the existing game.
+CREATE: The user can add a new row into the Order_Games table with the Order Details form.<br>
+*Note: A Game can only be added once per order_id. If the user tries to add a game that's already been added, the quantity will be added to the existing game.
 
 READ: The existing/newly added data will appear on the Order Detail table.
 
-UPDATE: The user can update a game's quantity by cliclking the "Edit quantity" button in the drop down menu on the table.
+UPDATE: The user can update a game's quantity by clicking the "Edit quantity" button in the drop-down menu on the table.
 
-DELETE: The user can delete a game by clicking the "Delete" button in the drop down menu on the table.
+DELETE: The user can delete a game by clicking the "Delete" button in the drop-down menu on the table.
 
 
 Related files - orderdetail.js, orderdetailform.js, orderdetailtable.js

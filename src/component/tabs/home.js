@@ -26,13 +26,17 @@ function addZero(time) {
     return time;
 }
 
-// Get current UTC date in "YYYY-MM-DD" format.
-let today = new Date();
-let date = today.getUTCFullYear() + '-' + (today.getUTCMonth() + 1) + '-' + today.getUTCDate();
+// Function to get the current date in "YYYY-MM-DD" format.
+function getDate() {
+    let today = new Date();
+    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+}
 
-// Get current UTC time in "00:00:00" format.
-let time = addZero(today.getUTCHours()) + ":" + addZero(today.getUTCMinutes()) + ":" + addZero(today.getUTCSeconds());
-
+// Function to get the current time in "00:00:00" format.
+function getTime() {
+    let today = new Date();
+    return addZero(today.getHours()) + ":" + addZero(today.getMinutes()) + ":" + addZero(today.getSeconds());
+}
 
 class Home extends Component {
     constructor(props) {
@@ -69,7 +73,7 @@ class Home extends Component {
         const that = this
         fetch(`${SERVER_URL}/orders`, {
             method: 'POST',
-            body: JSON.stringify({customer_id: null, order_date: date + ' ' + time}),
+            body: JSON.stringify({customer_id: null, order_date: getDate() + ' ' + getTime()}),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
